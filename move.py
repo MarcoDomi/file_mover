@@ -1,6 +1,9 @@
 import os
 import shutil
+import time
 from datetime import datetime
+from watchdog.observers.polling import PollingObserver
+from watchdog.events import FileSystemEventHandler
 # TODO remove testfolder directory later
 
 valid_extensions = [".jpg", ".jpeg", ".png"]
@@ -24,5 +27,30 @@ def file_mover():
             if is_valid_extension(entry.name):
                 shutil.move(entry, dest_path)
 
-#return_files()
-file_mover()
+
+class MyHandler(FileSystemEventHandler):
+    def on_modified(self, event):
+        print(f'File {event.src_path} has been modified')
+
+    def on_created(self, event):
+        print(f'File {event.src_path} has been created')
+
+    def on_deleted(self, event):
+        print(f'File {event.src_path} has been deleted')
+
+
+
+if __name__ == "__main__":
+    #return_files()
+    #file_mover()
+    event_handler = MyHandler()
+    observer = PollingObserver()
+    observer.schedule(event_handler, path=source_path, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
