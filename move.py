@@ -34,6 +34,7 @@ class MyHandler(FileSystemEventHandler):
 
     def on_created(self, event):
         print(f'File {event.src_path} has been created')
+        file_mover()
 
     def on_deleted(self, event):
         print(f'File {event.src_path} has been deleted')
@@ -42,7 +43,6 @@ class MyHandler(FileSystemEventHandler):
 
 if __name__ == "__main__":
     #return_files()
-    #file_mover()
     event_handler = MyHandler()
     observer = PollingObserver()
     observer.schedule(event_handler, path=source_path, recursive=True)
