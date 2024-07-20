@@ -1,13 +1,18 @@
 import os
 import shutil
 import time
+import sys
 from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 # TODO remove testfolder directory later
 
 valid_extensions = [".jpg", ".jpeg", ".png"]
 source_path = "/mnt/c/Users/MarcoDominguez/Downloads"
-dest_path = "/home/marcodom/repos/file_mover/testfolder" #will change later
+
+if len(sys.argv) == 1:
+    dest_path = "/home/marcodom/images"
+else:
+    dest_path = sys.argv[1]
 
 def return_files(): #will delete later
     with os.scandir(dest_path) as entries:
@@ -59,4 +64,3 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
-    
