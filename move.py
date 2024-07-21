@@ -4,7 +4,7 @@ import time
 import sys
 from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
-# TODO remove testfolder directory later
+
 
 valid_extensions = [".jpg", ".jpeg", ".png"]
 source_path = "/mnt/c/Users/MarcoDominguez/Downloads"
