@@ -20,17 +20,18 @@ def return_files(): #used to return files from dest_path back to source_path
             shutil.move(entry, source_path)
 
 def min_since_file_modified(file): #minutes since file was modified
-    c = os.path.getmtime(file)
+    c = os.path.getctime(file)
     curr = time.time()
     seconds_per_min = 60.0
     time_elapse = (curr - c) / seconds_per_min
-
+    print(time_elapse)
     return time_elapse
 
 def is_valid_extension(file_name):
     index = file_name.find('.')
     file_extension = file_name[index:]
     is_valid = file_extension in valid_extensions
+    print(is_valid)
     return is_valid
 
 
@@ -38,7 +39,8 @@ def file_mover():  # if file has a valid extension and the modified time was no 
     valid_min_elapsed = 10.0 #10 minutes
     with os.scandir(source_path) as entries:
         for entry in entries:
-            if is_valid_extension(entry.name) and min_since_file_modified(source_path + '/' + entry.name) < valid_min_elapsed: 
+            if is_valid_extension(entry.name) and min_since_file_modified(source_path + '/' + entry.name) < valid_min_elapsed:
+                print("checker") 
                 shutil.move(entry, dest_path)
 
 
