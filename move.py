@@ -7,10 +7,10 @@ from watchdog.events import FileSystemEventHandler
 
 
 valid_extensions = [".jpg", ".jpeg", ".png", ".json"]
-source_path = "/mnt/c/Users/MarcoDominguez/Downloads"
+source_path = "/mnt/c/Users/MarcoDominguez/downloads"
 
 if len(sys.argv) == 1: 
-    dest_path = "/home/marcodom/Downloads" #if no dest_path is provided in terminal set dest_path to this directory
+    dest_path = "/home/marcodom/downloads" #if no dest_path is provided in terminal set dest_path to this directory
 else:
     dest_path = sys.argv[1]
 
@@ -20,10 +20,10 @@ def return_files(): #used to return files from dest_path back to source_path
             shutil.move(entry, source_path)
 
 def min_since_file_modified(file): #minutes since file was modified
-    c = os.path.getctime(file)
+    m = os.path.getmtime(file) #epoch time since path was modified
     curr = time.time()
     seconds_per_min = 60.0
-    time_elapse = (curr - c) / seconds_per_min
+    time_elapse = (curr - m) / seconds_per_min
     print(time_elapse)
     return time_elapse
 
