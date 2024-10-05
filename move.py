@@ -6,7 +6,7 @@ from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 
 
-valid_extensions = [".jpg", ".jpeg", ".png", ".json"]
+valid_extensions = [".jpg", ".jpeg", ".png", ".json", ".ch8"]
 source_path = "/mnt/c/Users/MarcoDominguez/downloads"
 
 if len(sys.argv) == 1: 
