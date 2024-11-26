@@ -23,7 +23,7 @@ def min_since_file_modified(file): #minutes since file was modified
     m = os.path.getmtime(file) #epoch time since path was modified
     curr = time.time()
     seconds_per_min = 60.0
-    time_elapse = (curr - m) / seconds_per_min
+    time_elapse = (curr - m) / seconds_per_min #calculates minutes since file was modified
     print(time_elapse)
     return time_elapse
 
@@ -40,7 +40,7 @@ def file_mover():  # if file has a valid extension and the modified time was no 
     with os.scandir(source_path) as entries:
         for entry in entries:
             if is_valid_extension(entry.name) and min_since_file_modified(source_path + '/' + entry.name) < valid_min_elapsed:
-                print("checker") 
+                print(f"{entry.name} is being moved") 
                 shutil.move(entry, dest_path)
 
 
